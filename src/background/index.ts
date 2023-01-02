@@ -28,7 +28,7 @@ browser.tabs.onActivated.addListener(async ({ tabId }) => {
   }
 
   // eslint-disable-next-line no-console
-  console.log('previous tab', tab)
+  console.log('previous tab', tab.title)
   sendMessage('tab-prev', { title: tab.title }, { context: 'content-script', tabId })
 })
 

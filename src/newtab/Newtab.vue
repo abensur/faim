@@ -14,33 +14,34 @@ const reset = () => {
   storageDemo.value = faimList.map(item => ({ ...item }))
 }
 
-const toGoogle = () => {
-  window.open('https://google.com', '_self')
+const countAndGo = (item: any) => {
+  item.clicks++
+  window.open(item.url, '_self')
 }
 </script>
 
 <template>
-  <main class="px-4 py-10 text-center text-gray-700 dark:text-gray-200">
-    <img src="/assets/icon.svg" class="icon-btn mx-2 text-2xl" alt="extension icon">
-    <div>new tab</div>
-    <!-- open google.com -->
-    <div class="btn mr-2" @click="toGoogle">
-      Google Search
-    </div>
-
-    <div class="btn" @click="reset">
-      Reset
-    </div>
-    <div grid grid-cols-2>
-      <div v-for="item in items" :key="item.name" class="border ma-2 pa-2" @click="item.clicks++">
-        <div class="text-sm font-medium">
-          {{ item.name }}
+  <main class="px-4 pb-10 text-gray-700 dark:text-gray-200">
+    <header pt-2 px-2 flex>
+      <div class="btn ml-auto" @click="reset">
+        Reset click count
+      </div>
+    </header>
+    <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div v-for="item in items" :key="item.name" class="flex flex-wrap border ma-2 pa-2 cursor-pointer hover:border-cyan" @click="countAndGo(item)">
+        <div class="w-120px text-center">
+          <img :src="`/assets/${item.image}.png`" alt="extension icon">
+          <small>made with Midjourney</small>
         </div>
-        <div class="text-sm font-medium">
-          {{ item.clicks }}
-        </div>
-        <div class="text-sm font-medium">
-          <a :href="item.url" target="_self"> {{ item.url }} </a>
+        <div class="flex-1 px-2">
+          <div class="text-lg font-medium">
+            <a :href="item.url" target="_self"> {{ item.name }}</a>
+            <!-- <sup text-xs>{{ item.clicks }}</sup> -->
+          </div>
+          <p class="text-11px">
+            {{ item.description }}
+            <br><small>made with {{ item.description_source }}</small>
+          </p>
         </div>
       </div>
     </div>
